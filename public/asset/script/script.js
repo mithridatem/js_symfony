@@ -6,7 +6,7 @@ tasks.forEach(element => {
         //test si checked
         if(element.children[1].checked){
              //création du json
-            const json = {'id':element.children[1].id, 'name':element.children[0].textContent,'status':true}
+            const json = {'id':element.children[1].id, 'name':element.children[0].textContent,'status':false}
             let xhr = new XMLHttpRequest();
             //connexion
             xhr.open("POST", '/task/update/'+element.children[1].id, true);
