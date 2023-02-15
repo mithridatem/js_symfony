@@ -35,7 +35,7 @@ class TaskController extends AbstractController
         $task = $repo->find($id);
         //test si la catégorie n'existe pas
         if($task == null){
-            return $this->json(['error'=>'La Tache existe pas'],403,
+            return $this->json(['error'=>'La Tache existe pas'],404,
             ['Content-Type'=>'application/json','Access-Control-Allow-Origin'=> '*']);
         }
         //test si elle existe
@@ -60,7 +60,7 @@ class TaskController extends AbstractController
             //test si je n'ai pas de json dans le résultat de la requête
             else{
                 //retourne une erreur pas de json
-                return $this->json(['error'=>'entête http ne contient aucun json'],500,
+                return $this->json(['error'=>'entête http ne contient aucun json'],400,
                 ['Content-Type'=>'application/json','Access-Control-Allow-Origin'=> '*']);
             }
         }

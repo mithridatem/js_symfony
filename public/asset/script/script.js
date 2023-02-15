@@ -17,20 +17,24 @@ tasks.forEach(element => {
             xhr.setRequestHeader("Content-Type", "application/json");
             //Appelle une fonction au changement d'état.
             xhr.onreadystatechange = function() { 
+                /* OK status de la tache mise à jour  */
                 if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
                     console.log(this.response);
-                }else if(this.status === 403){
+                    //suppression de l'element HTML du DOM
+                    element.remove();
+                }
+                /* Erreur il n'y a pas de taches */
+                else if(this.status === 400){
                     console.log(this.reponse);
                 }
-                else if(this.status === 500){
+                /* Erreur pas de json*/
+                else if(this.status === 404){
                     console.log(this.response);
                 }
             }
             //envoi du json
             xhr.send(json);
-            //suppression de l'element
-            element.remove();
-            console.log(json);
+        /* test si la chebox n'est pas cochée */   
         }else{
             console.log('cocher la checkbox');
         }
