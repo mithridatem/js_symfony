@@ -18,10 +18,12 @@ tasks.forEach(element => {
             //Appelle une fonction au changement d'état.
             xhr.onreadystatechange = function() { 
                 if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-                    //refresh ton interface
-                    console.log('ok');
-                }else{
-                    console.log('erreur');
+                    console.log(this.response);
+                }else if(this.status === 403){
+                    console.log(this.reponse);
+                }
+                else if(this.status === 500){
+                    console.log(this.response);
                 }
             }
             //envoi du json
