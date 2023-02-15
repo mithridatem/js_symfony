@@ -24,8 +24,8 @@ class TaskController extends AbstractController
                 'tasks' => $tasks, 
         ]);
     }
-    //fonction qui ajoute une nouvelle catégorie depuis un json
-    #[Route('/task/update/{id}', name: 'app_task_update', methods: 'POST')]
+    //fonction qui update une tache depuis un json
+    #[Route('/task/update/{id}', name: 'app_task_update')]
     public function updatetask(taskRepository $repo,
     EntityManagerInterface $manager, Request $request,
     SerializerInterface $serializer, $id
@@ -33,11 +33,10 @@ class TaskController extends AbstractController
     {
         //récupération de l'objet si il existe
         $task = $repo->find($id);
-        //test si la catégorie existe
+        //test si la catégorie n'existe pas
         if($task == null){
             return $this->json(['error'=>'La Tache n\'existe pas'],200,
-            ['Content-Type'=>'application/json','Access-Control-Allow-Origin'=> '*',
-            'Access-Control-Allow-Methods'=>'PATCH']);
+            ['Content-Type'=>'application/json','Access-Control-Allow-Origin'=> '*']);
         }
         //test si elle existe
         else{

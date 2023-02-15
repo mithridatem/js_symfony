@@ -5,9 +5,12 @@ tasks.forEach(element => {
     element.children[2].addEventListener('click', (e)=>{
         //test si checked
         if(element.children[1].checked){
+            const id = element.children[1].id;
+            const name = element.children[0].textContent;
              //création du json
-            const json = {'id':element.children[1].id, 'name':element.children[0].textContent,'status':false}
+            const json = '{"id":'+'"'+id+'"'+',"name":'+'"'+name+'"'+', "status":false}';
             let xhr = new XMLHttpRequest();
+            console.log(element.children[1].id);  
             //connexion
             xhr.open("POST", '/task/update/'+element.children[1].id, true);
             //Envoie les informations du header adaptées avec la requête
