@@ -4,11 +4,11 @@
 
 {% block body %}
     {% for task in tasks %}
-        <form action="" method="post">
-            <p name="{{task.id}}" hidden></p>
+        <div class="tasks">
             <p name="{{task.name}}">{{task.name}}</p>
-            <input type="checkbox" name="{{task.status}}" value="{{task.status}}">
-            <input type="submit" value="update">
-        </form>
+            <input type="checkbox" id="{{task.id}}">
+            <button>update</button>
+        </div>
+    </form>
     {% endfor %}
 {% endblock %}
