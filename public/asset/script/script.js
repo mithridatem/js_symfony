@@ -184,6 +184,8 @@ tasks.forEach(element=>{
                         }
                         //test erreur il n'y a pas de json
                         else if(response.status === 404){
+                            //suppression de l'element HTML du DOM
+                            element.remove();
                             //message d'erreur
                             msg_zone.style.color = "red";
                             msg_zone.textContent = response.status+" : "+data.error;
