@@ -84,7 +84,7 @@ tasks.forEach(element=>{
         }
     })
 });
-
+console.log(tasks);
 //edit version fetch
 tasks.forEach(element=>{
     element.children[3].addEventListener('click', (e)=>{
@@ -98,7 +98,10 @@ tasks.forEach(element=>{
             let newName = "";
             //si le nom de la tache n'est pas changé
             if(newName == ""){
+                //coloration du bouton
                 element.children[3].style.backgroundColor = '#EFEFEF';
+                //remplacement texte du bouton
+                element.children[3].innerText = 'edit';
             }
             //test si le nouveau nom existe
             if(element.children[0].type == 'text' && element.children[0].value !=null){
@@ -118,9 +121,22 @@ tasks.forEach(element=>{
                 element.replaceChild(input, old);
                 //coloration du bouton
                 element.children[3].style.backgroundColor = 'rgb(222, 119, 51)';
+                //remplacement texte du bouton
+                element.children[3].innerText = 'Valider';
             }
             //test si le premier enfant est un input
             else{
+                //test si new name est vide
+                if(newName == ""){
+                    msg_zone.style.color = "orange";
+                    msg_zone.textContent = "Modification annulée";
+                    //vider la zone message au bout de 2 secondes
+                    const myTimeout = setTimeout(()=>{
+                        msg_zone.textContent = "";  
+                    }, 2000);
+                    //décocher la checkbox
+                    element.children[1].checked = false;
+                }
                 //récupération du name
                 const texte = element.children[0].name;
                 //préparation du nouvel enfant
