@@ -24,7 +24,7 @@ class TaskController extends AbstractController
                 'tasks' => $tasks, 
         ]);
     }
-    //fonction qui update une tache depuis un json
+    //fonction qui update le status une tache depuis un json
     #[Route('/task/update/{id}', name: 'app_task_update')]
     public function updatetask(taskRepository $repo,
     EntityManagerInterface $manager, Request $request,
@@ -53,7 +53,48 @@ class TaskController extends AbstractController
                 //envoyer la modification a la BDD
                 $manager->flush();
                 //retourne un json
-                return $this->json(['error'=>'Le status est modifie'],200,
+                return $this->json(['error'=>'La tache a ete supprime (status = 0)'],200,
+                ['Content-Type'=>'application/json','Access-Control-Allow-Origin'=> '*']);
+                
+            }
+            //test si je n'ai pas de json dans le résultat de la requête
+            else{
+                //retourne une erreur pas de json
+                return $this->json(['error'=>'entête http ne contient aucun json'],400,
+                ['Content-Type'=>'application/json','Access-Control-Allow-Origin'=> '*']);
+            }
+        }
+    }
+    //fonction qui update le name une tache depuis un json
+    #[Route('/task/update/name/{id}', name: 'app_task_update_name')]
+    public function updateNametask(taskRepository $repo,
+    EntityManagerInterface $manager, Request $request,
+    SerializerInterface $serializer, $id
+    ): Response
+    {
+        //récupération de l'objet si il existe
+        $task = $repo->find($id);
+        //test si la catégorie n'existe pas
+        if($task == null){
+            return $this->json(['error'=>'La Tache existe pas'],404,
+            ['Content-Type'=>'application/json','Access-Control-Allow-Origin'=> '*']);
+        }
+        //test si elle existe
+        else{
+            //récupérer le json avec Request
+            $json = $request->getContent();
+            //tester si on à bien récupéré un json
+            if($json != null){
+                //décoder le json -> convertir en tableau
+                $recup = $serializer->decode($json, 'json');
+                //setter le nouveau nom
+                $task->setName($recup['name']);
+                //sauvegarder la modification dans le manager
+                $manager->persist($task);
+                //envoyer la modification a la BDD
+                $manager->flush();
+                //retourne un json
+                return $this->json(['error'=>'La tache est modifie'],200,
                 ['Content-Type'=>'application/json','Access-Control-Allow-Origin'=> '*']);
                 
             }
