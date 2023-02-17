@@ -26,7 +26,7 @@ class TaskController extends AbstractController
     }
     //fonction qui update le status une tache depuis un json
     #[Route('/task/update/{id}', name: 'app_task_update')]
-    public function updatetask(taskRepository $repo,
+    public function updateTask(taskRepository $repo,
     EntityManagerInterface $manager, Request $request,
     SerializerInterface $serializer, $id
     ): Response
@@ -53,9 +53,8 @@ class TaskController extends AbstractController
                 //envoyer la modification a la BDD
                 $manager->flush();
                 //retourne un json
-                return $this->json(['error'=>'La tache a ete supprime (status = 0)'],200,
+                return $this->json(['error'=>'La tache '.$task->getName().' a ete supprime'],200,
                 ['Content-Type'=>'application/json','Access-Control-Allow-Origin'=> '*']);
-                
             }
             //test si je n'ai pas de json dans le résultat de la requête
             else{
@@ -94,7 +93,7 @@ class TaskController extends AbstractController
                 //envoyer la modification a la BDD
                 $manager->flush();
                 //retourne un json
-                return $this->json(['error'=>'La tache est modifie'],200,
+                return $this->json(['error'=>'La tache a ete renomme '.$recup['name']],200,
                 ['Content-Type'=>'application/json','Access-Control-Allow-Origin'=> '*']);
                 
             }
