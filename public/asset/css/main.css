@@ -13,6 +13,6 @@ input[type='text']{
     margin-bottom: 2vh;
     margin-left: 2vw;
 }
-div>p,#msg_zone, h3{
+div>p,#msg_zone, h3, label, button{
     margin-left: 2vw;
 }

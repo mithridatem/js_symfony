@@ -105,4 +105,39 @@ class TaskController extends AbstractController
             }
         }
     }
-}
+    //fonction qui update le name une tache depuis un json
+    #[Route('/task/add', name: 'app_task_add')]
+    public function addtask(taskRepository $repo,
+    EntityManagerInterface $manager, Request $request,
+    SerializerInterface $serializer
+    ): Response
+    {
+            //récupérer le json avec Request
+            $json = $request->getContent();
+            //tester si on à bien récupéré un json
+            if($json != null){
+                $task = new Task();
+                //décoder le json -> convertir en tableau
+                $recup = $serializer->decode($json, 'json');
+                //setter le nom
+                $task->setName($recup['name']);
+                //setter le status
+                $task->setStatus($recup['status']);
+                //sauvegarder l'ajout dans le manager
+                $manager->persist($task);
+                //envoyer l'ajout a la BDD
+                $manager->flush();
+        
+                //retourne un json
+                return $this->json(["id"=>$task->getId()],200,
+                ['Content-Type'=>'application/json','Access-Control-Allow-Origin'=> '*']);
+            }
+            //test si je n'ai pas de json dans le résultat de la requête
+            else{
+                //retourne une erreur pas de json
+                return $this->json(['error'=>'entête http ne contient aucun json'],400,
+                ['Content-Type'=>'application/json','Access-Control-Allow-Origin'=> '*']);
+            }
+        }
+    }
+

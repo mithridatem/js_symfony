@@ -3,7 +3,12 @@
 {% block title %}All Tasks{% endblock %}
 
 {% block body %}
+    <h3>Add a new task :</h3>
+    <label for="newtask">Enter the name</label>
+    <input type="text" id="newTask" name="newTask">
+    <button id="addTask">Add</button>
     <h3>Task list :</h3>
+    <div id="container">
     {% for task in tasks %}
         <div class="tasks">
             <p name="{{task.name}}">{{task.name}}</p>
@@ -12,5 +17,6 @@
             <button>Edit</button>
         </div>
     {% endfor %}
+    </div>
     <div id="msg_zone"></div>
 {% endblock %}

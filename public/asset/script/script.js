@@ -3,6 +3,77 @@ const tasks = document.querySelectorAll('.tasks');
 //récupération zone messages d'erreurs et de résultats
 const msg_zone = document.querySelector('#msg_zone');
 
+
+//add task version fetch
+//récupération du bouton 
+const btAdd = document.querySelector('#addTask');
+//récupération name new task
+const newTaskName = document.querySelector('#newTask');
+
+//écouteur événement
+btAdd.addEventListener('click', (e)=>{
+    if(newTaskName.value !=""){
+        console.log(newTaskName.value);
+        //création des ressources pour API
+        const url = '/task/add';
+        const nameTask = newTaskName.value;
+        const json = JSON.stringify({id:0,name:nameTask, status:true});
+        fetch(url,
+            {   
+                method :'POST',
+                headers :{
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body:json
+            })//réponse API
+            .then(async response => {
+                const data = await response.json();
+                console.log(response.status);
+                //test si le code http est 200
+                if(response.status === 200){
+                    //message confirmation
+                    msg_zone.style.color = "green";
+                    msg_zone.textContent = response.status+" : "+data.error;
+                    console.log("code"+data);
+                    //vider la zone message au bout de 2 secondes
+                    const myTimeout = setTimeout(()=>{
+                        msg_zone.textContent = "";  
+                    }, 2000);
+                    const nameTaskInput = document.createElement("p");
+                    nameTaskInput.setAttribute('name',nameTask);
+                    nameTaskInput.textContent = nameTask;
+                    const check = document.createElement("input");
+                    check.setAttribute("type", "checkbox");
+                    check.setAttribute('id', data.id);
+                    const bt_cp = document.createElement("button");
+                    bt_cp.textContent = "Completed";
+                    const bt_edit = document.createElement("button");
+                    bt_edit.textContent = "Edit";
+                    const divTask = document.createElement("div");
+                    divTask.setAttribute("class", "tasks");
+                    const container = document.querySelector('#container');
+                    container.appendChild(divTask);
+                    divTask.appendChild(nameTaskInput);
+                    divTask.appendChild(check);
+                    divTask.appendChild(bt_cp);
+                    divTask.appendChild(bt_edit);
+                }
+                //test erreur il n'y a pas de json
+                else if(response.status === 404){
+                    //message d'erreur
+                    msg_zone.style.color = "red";
+                    msg_zone.textContent = response.status+" : "+data.error;
+                    //vider la zone message au bout de 2 secondes
+                    const myTimeout = setTimeout(()=>{
+                        msg_zone.textContent = "";  
+                    }, 2000); 
+                }
+            })
+        }
+    });
+
+
 //delete version fetch
 tasks.forEach(element=>{
     element.children[2].addEventListener('click', (e)=>{
