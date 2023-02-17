@@ -4,3 +4,5 @@
 -mise à jour du DOM en JS,
 -Utilisation de fetch (js) pour mettre à jour et supprimer
 des enregistrements en BDD.
+## @TODO :
+-ajouter fonction back et front : ajouter une tache.
