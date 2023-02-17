@@ -231,7 +231,7 @@ tasks.forEach(element=>{
         else{
             //affichage de l'erreur
             msg_zone.style.color = "tomato";
-            msg_zone.textContent = 'cocher la checkbox';
+            msg_zone.textContent = 'Veuillez cocher la checkbox !!!';
             //vider la zone message au bout de 2 secondes
             const myTimeout = setTimeout(()=>{
                 msg_zone.textContent = "";  
