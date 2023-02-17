@@ -76,7 +76,7 @@ tasks.forEach(element=>{
         //test si pas checked
         else{
             msg_zone.style.color = "orange";
-            msg_zone.textContent = "Veuillez cocher la checkbox !!!";
+            msg_zone.textContent = "Please tick the checkbox !!!";
             //vider la zone message au bout de 2 secondes
             const myTimeout = setTimeout(()=>{
                 msg_zone.textContent = "";  
@@ -122,14 +122,14 @@ tasks.forEach(element=>{
                 //coloration du bouton
                 element.children[3].style.backgroundColor = 'rgb(222, 119, 51)';
                 //remplacement texte du bouton
-                element.children[3].innerText = 'Valider';
+                element.children[3].innerText = 'To validate';
             }
             //test si le premier enfant est un input
             else{
                 //test si new name est vide
                 if(newName == ""){
                     msg_zone.style.color = "orange";
-                    msg_zone.textContent = "Modification annulée";
+                    msg_zone.textContent = "Update canceled";
                     //vider la zone message au bout de 2 secondes
                     const myTimeout = setTimeout(()=>{
                         msg_zone.textContent = "";  
@@ -231,7 +231,7 @@ tasks.forEach(element=>{
         else{
             //affichage de l'erreur
             msg_zone.style.color = "tomato";
-            msg_zone.textContent = 'Veuillez cocher la checkbox !!!';
+            msg_zone.textContent = 'Please tick the checkbox !!!';
             //vider la zone message au bout de 2 secondes
             const myTimeout = setTimeout(()=>{
                 msg_zone.textContent = "";  
