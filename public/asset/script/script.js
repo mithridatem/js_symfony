@@ -1,5 +1,5 @@
 //récupération des taches
-const tasks = document.querySelectorAll('.tasks');
+let tasks = document.querySelectorAll('.tasks');
 //récupération zone messages d'erreurs et de résultats
 const msg_zone = document.querySelector('#msg_zone');
 
@@ -58,6 +58,8 @@ btAdd.addEventListener('click', (e)=>{
                     divTask.appendChild(check);
                     divTask.appendChild(bt_cp);
                     divTask.appendChild(bt_edit);
+                    //reload page
+                    location.reload();
                 }
                 //test erreur il n'y a pas de json
                 else if(response.status === 404){
